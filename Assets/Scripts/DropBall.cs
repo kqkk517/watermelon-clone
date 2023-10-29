@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-static class Constants
+static class MousePosConstants
 {
-    public const float MaxXPos = 2.7f;
-    public const float MaxYPos = 3.5f;
+    public const float MAX_X_POS = 2.7f;
+    public const float Y_POS = 3.5f;
 }
 
 public class DropBall : MonoBehaviour
@@ -31,8 +31,8 @@ public class DropBall : MonoBehaviour
             Drop();
         }
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        mousePos.x = Mathf.Clamp(mousePos.x, -Constants.MaxXPos, Constants.MaxXPos);
-        mousePos.y = Constants.MaxYPos;
+        mousePos.x = Mathf.Clamp(mousePos.x, -MousePosConstants.MAX_X_POS, MousePosConstants.MAX_X_POS);
+        mousePos.y = MousePosConstants.Y_POS;
         transform.position = mousePos;
     }
 
@@ -40,5 +40,6 @@ public class DropBall : MonoBehaviour
     {
         isDropping = true;
         rb.simulated = true;
+        GameManager.Instance.isNext = true;
     }
 }
