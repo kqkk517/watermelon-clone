@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     // DropBall.Drop()でtrueにする
     public bool isNext { get; set; }
 
-    [SerializeField] private GameObject Ball;
+    [SerializeField] private GameObject[] Balls;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
 
     private void GenerateBall()
     {
-        Instantiate(Ball, new Vector2(GenConstants.X_POS, GenConstants.Y_POS), Quaternion.identity);
+        int index = Random.Range(0, Balls.Length - 2);
+        Instantiate(Balls[index], new Vector2(GenConstants.X_POS, GenConstants.Y_POS), Quaternion.identity);
     }
 }
