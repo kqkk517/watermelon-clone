@@ -14,10 +14,11 @@ public class Ball : MonoBehaviour
     public int id { get; set; }
     // 落下中かどうか
     public bool isDropping { get; set; } = false;
+
+    // Rigidbodyコンポーネント
+    private Rigidbody2D rb;
     // 合体できるかどうか
     private bool canMerge = false;
-
-    private Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()

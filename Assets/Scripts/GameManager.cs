@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 static class GenConstants
 {
@@ -19,14 +20,22 @@ public class GameManager : MonoBehaviour
     // ボールの種類数
     public int ballsLength { get; private set; }
 
+    // ボール全種類の配列
     [SerializeField] private GameObject[] Balls;
+    // スコアを表示するUIテキスト
+    [SerializeField] private Text scoreTxt;
+
+    // スコア
+    private int score;
 
     // Start is called before the first frame update
     void Start()
     {
         Instance = this;
-        ballsLength = Balls.Length;
         isNext = false;
+        ballsLength = Balls.Length;
+        score = 0;
+        SetScore(score);
         GenerateBall();
     }
 
@@ -62,5 +71,19 @@ public class GameManager : MonoBehaviour
         newBall.id = parentId + 1;
         newBall.isDropping = true;
         newBall.GetComponent<Rigidbody2D>().simulated = true;
+        CalcScore(parentId);
+    }
+
+    // スコアを計算する
+    private void CalcScore(int parentId)
+    {
+        score += (int)Mathf.Pow(2, parentId);
+        SetScore(score);
+    }
+
+    // スコアをUIテキストにセットする
+    private void SetScore(int score)
+    {
+        scoreTxt.text = score.ToString();
     }
 }
