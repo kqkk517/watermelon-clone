@@ -12,7 +12,7 @@ public class Ball : MonoBehaviour
 {
     // ボールの種類を識別するID
     public int id { get; set; }
-    // 落下中かどうか
+    // 落下中かどうか（落下終了後もtrueのままで差し支えない）
     public bool isDropping { get; set; } = false;
 
     // Rigidbodyコンポーネント
@@ -44,6 +44,7 @@ public class Ball : MonoBehaviour
         transform.position = mousePos;
     }
 
+    // 同じ種類のボールとぶつかったら合体する（ぶつかったボール同士を消す）
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Ball colBall = collision.gameObject.GetComponent<Ball>();

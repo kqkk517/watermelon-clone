@@ -24,6 +24,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject[] Balls;
     // スコアを表示するUIテキスト
     [SerializeField] private Text scoreTxt;
+    // ゲームオーバーパネル
+    [SerializeField] private GameObject GameOverPanel;
+    // ゲームオーバー時のスコアを表示するUIテキスト
+    [SerializeField] private Text gameOverScoreTxt;
 
     // スコア
     private int score;
@@ -35,7 +39,7 @@ public class GameManager : MonoBehaviour
         isNext = false;
         ballsLength = Balls.Length;
         score = 0;
-        SetScore(score);
+        SetScore();
         GenerateBall();
     }
 
@@ -59,9 +63,10 @@ public class GameManager : MonoBehaviour
         ballInstance.id = index;
     }
 
-    // ボールを合体する
+    // ボールを合体する（ひとつ大きいボールを生成する）
     public void MergeBalls(Vector3 genPos, int parentId)
     {
+        // 一番大きいボールだったら何も生成しない
         if (parentId == ballsLength - 1)
         {
             return;
@@ -78,12 +83,19 @@ public class GameManager : MonoBehaviour
     private void CalcScore(int parentId)
     {
         score += (int)Mathf.Pow(2, parentId);
-        SetScore(score);
+        SetScore();
     }
 
     // スコアをUIテキストにセットする
-    private void SetScore(int score)
+    private void SetScore()
     {
         scoreTxt.text = score.ToString();
+    }
+
+    // ゲームオーバー処理
+    public void GameOver()
+    {
+        gameOverScoreTxt.text = "SCORE: " + score.ToString();
+        GameOverPanel.SetActive(true);
     }
 }
