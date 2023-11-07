@@ -18,7 +18,7 @@ public class Ball : MonoBehaviour
     // Rigidbodyコンポーネント
     private Rigidbody2D rb;
     // 合体できるかどうか
-    private bool canMerge = false;
+    private bool canMerge = true;
 
     // Start is called before the first frame update
     void Start()
@@ -51,11 +51,11 @@ public class Ball : MonoBehaviour
         if (colBall != null &&
             id == colBall.id &&
             id < GameManager.Instance.ballsLength &&
-            !canMerge &&
-            !colBall.canMerge)
+            canMerge &&
+            colBall.canMerge)
         {
-            canMerge = true;
-            colBall.canMerge = true;
+            canMerge = false;
+            colBall.canMerge = false;
             GameManager.Instance.MergeBalls(
                 (transform.position + colBall.transform.position) / 2, id);
             Destroy(gameObject);
